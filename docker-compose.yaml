@@ -20,7 +20,7 @@ services:
       - ./certspath:/etc/ssl/certs/ca-bundle.crt #changeme
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.10
+        ipv4_address: IP
 
   netbox-worker:
     image: ghcr.io/steele-ntwrk/custom-netbox-dtli 
@@ -33,7 +33,7 @@ services:
     command: /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py rqworker
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.11
+        ipv4_address: IP
 
   netbox-housekeeping:
     image: ghcr.io/steele-ntwrk/custom-netbox-dtli 
@@ -46,7 +46,7 @@ services:
     command: /opt/netbox/housekeeping.sh
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.12
+        ipv4_address: IP
 
   postgres:
     image: postgres:15
@@ -60,7 +60,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.13
+        ipv4_address: IP
 
   redis:
     image: redis:7
@@ -68,7 +68,7 @@ services:
     restart: unless-stopped
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.14
+        ipv4_address: IP
 
 volumes:
   netbox-media:
