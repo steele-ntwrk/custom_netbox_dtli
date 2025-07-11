@@ -1,0 +1,14 @@
+FROM netboxcommunity/netbox:latest
+
+USER root
+
+RUN apt-get update && apt-get install -y git python3-pip python3-venv && \
+    rm -rf /var/lib/apt/lists/*
+
+# Clone DTLI
+RUN git clone https://github.com/netbox-community/Device-Type-Library-Import.git /opt/dtli
+
+# Create a virtualenv for DTLI and install dependencies into it
+RUN python3 -m venv /opt/dtli/venv && \
+    /opt/dtli/venv/bin/pip install --upgrade pip && \
+    /opt/dtli/venv/bin/pip install -r /opt/dtli/requirements.txt

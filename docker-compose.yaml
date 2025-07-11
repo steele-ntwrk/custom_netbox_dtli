@@ -1,0 +1,79 @@
+services:
+  netbox:
+    build: .
+    image: custom-netbox-dtli:latest
+    container_name: netbox
+    restart: unless-stopped
+    env_file:
+      - ./netbox.env
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./devicetype-library:/data/devicetype-library:ro
+      - ./reports:/opt/netbox/netbox/reports
+      - ./scripts:/opt/netbox/netbox/scripts
+      - ./netbox-media:/opt/netbox/netbox/media
+      - ./dtli.env:/opt/dtli/.env:ro
+
+    networks:
+      LabDocker:
+        ipv4_address: 10.107.212.10
+
+  netbox-worker:
+    image: custom-netbox-dtli:latest
+    container_name: netbox-worker
+    restart: unless-stopped
+    env_file:
+      - ./netbox.env
+    depends_on:
+      - netbox
+    command: /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py rqworker
+    networks:
+      LabDocker:
+        ipv4_address: 10.107.212.11
+
+  netbox-housekeeping:
+    image: custom-netbox-dtli:latest
+    container_name: netbox-housekeeping
+    restart: unless-stopped
+    env_file:
+      - ./netbox.env
+    depends_on:
+      - netbox
+    command: /opt/netbox/housekeeping.sh
+    networks:
+      LabDocker:
+        ipv4_address: 10.107.212.12
+
+  postgres:
+    image: postgres:15
+    container_name: netbox-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: netbox
+      POSTGRES_USER: netbox
+      POSTGRES_PASSWORD: netbox
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      LabDocker:
+        ipv4_address: 10.107.212.13
+
+  redis:
+    image: redis:7
+    container_name: netbox-redis
+    restart: unless-stopped
+    networks:
+      LabDocker:
+        ipv4_address: 10.107.212.14
+
+volumes:
+  netbox-media:
+    driver: local
+  postgres-data:
+    driver: local
+
+networks:
+  LabDocker:
+    external: true
