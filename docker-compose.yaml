@@ -20,11 +20,8 @@ services:
 #     - ./certspath:/etc/ssl/certs/ca-bundle.crt #changeme
     networks:
       LabDocker:
-<<<<<<< HEAD
         ipv4_address: IP_ADDRESS_OF_NETBOX
-=======
-        ipv4_address: IP
->>>>>>> 3d384b5f2c10e43e680bc7c01d69dfab80a38b0d
+
 
   netbox-worker:
     image: ghcr.io/steele-ntwrk/custom-netbox-dtli:offline 
@@ -37,11 +34,7 @@ services:
     command: /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py rqworker
     networks:
       LabDocker:
-<<<<<<< HEAD
         ipv4_address: IP_ADDRESS_OF_NETBOX_WORKER
-=======
-        ipv4_address: IP
->>>>>>> 3d384b5f2c10e43e680bc7c01d69dfab80a38b0d
 
   netbox-housekeeping:
     image: ghcr.io/steele-ntwrk/custom-netbox-dtli:offline
@@ -54,11 +47,7 @@ services:
     command: /opt/netbox/housekeeping.sh
     networks:
       LabDocker:
-<<<<<<< HEAD
         ipv4_address: IP_ADDRESS_OF_NETBOX_HOUSEKEEPING
-=======
-        ipv4_address: IP
->>>>>>> 3d384b5f2c10e43e680bc7c01d69dfab80a38b0d
 
   postgres:
     image: postgres:15
@@ -72,11 +61,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       LabDocker:
-<<<<<<< HEAD
         ipv4_address: IP_ADDRESS_OF_POSTGRESQL_SERVER
-=======
-        ipv4_address: IP
->>>>>>> 3d384b5f2c10e43e680bc7c01d69dfab80a38b0d
 
   redis:
     image: redis:7
@@ -84,11 +69,7 @@ services:
     restart: unless-stopped
     networks:
       LabDocker:
-<<<<<<< HEAD
         ipv4_address: IP_ADDRESS_OF_REDIS_SERVER
-=======
-        ipv4_address: IP
->>>>>>> 3d384b5f2c10e43e680bc7c01d69dfab80a38b0d
 
 volumes:
   netbox-media:
