@@ -123,3 +123,13 @@ For better network isolation, you may choose to create a dedicated service netwo
    ```
 
 ---
+
+
+---
+
+## Resources
+
+- NetBox Project: [https://netbox.dev](https://netbox.dev)
+- NetBox GitHub Repository: [https://github.com/netbox-community/netbox](https://github.com/netbox-community/netbox)
+
+---
