@@ -1,7 +1,7 @@
 services:
   netbox:
     build: .
-    image: ghcr.io/steele-ntwrk/custom-netbox-dtli 
+    image: ghcr.io/steele-ntwrk/custom-netbox-dtli:offline 
     container_name: netbox
     restart: unless-stopped
     env_file:
@@ -17,13 +17,13 @@ services:
       - ./dtli.env:/opt/dtli/.env:ro
       - ./configuration/plugins.py:/etc/netbox/config/plugins.py
       - ./configuration/configuration.py:/etc/netbox/config/configuration.py
-      - ./certspath:/etc/ssl/certs/ca-bundle.crt #changeme
+#     - ./certspath:/etc/ssl/certs/ca-bundle.crt #changeme
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.10
+        ipv4_address: IP_ADDRESS_OF_NETBOX
 
   netbox-worker:
-    image: ghcr.io/steele-ntwrk/custom-netbox-dtli 
+    image: ghcr.io/steele-ntwrk/custom-netbox-dtli:offline 
     container_name: netbox-worker
     restart: unless-stopped
     env_file:
@@ -33,10 +33,10 @@ services:
     command: /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py rqworker
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.11
+        ipv4_address: IP_ADDRESS_OF_NETBOX_WORKER
 
   netbox-housekeeping:
-    image: ghcr.io/steele-ntwrk/custom-netbox-dtli 
+    image: ghcr.io/steele-ntwrk/custom-netbox-dtli:offline
     container_name: netbox-housekeeping
     restart: unless-stopped
     env_file:
@@ -46,7 +46,7 @@ services:
     command: /opt/netbox/housekeeping.sh
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.12
+        ipv4_address: IP_ADDRESS_OF_NETBOX_HOUSEKEEPING
 
   postgres:
     image: postgres:15
@@ -60,7 +60,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.13
+        ipv4_address: IP_ADDRESS_OF_POSTGRESQL_SERVER
 
   redis:
     image: redis:7
@@ -68,7 +68,7 @@ services:
     restart: unless-stopped
     networks:
       LabDocker:
-        ipv4_address: 10.107.212.14
+        ipv4_address: IP_ADDRESS_OF_REDIS_SERVER
 
 volumes:
   netbox-media:

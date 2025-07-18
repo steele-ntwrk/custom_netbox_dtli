@@ -24,8 +24,10 @@ RUN python3 -m venv /opt/dtli/venv && \
 COPY ./plugin_requirements.txt /opt/netbox/
 
 # Optional: if using offline cache, copy vendor dir and install from there
-# COPY ./plugins_offline /opt/netbox/plugins_offline/
-# RUN /usr/local/bin/uv pip install  --no-index --find-links=/opt/netbox/plugins_offline -r /opt/netbox/plugin_requirements.txt
+#COPY netbox_plugin_bundle.tgz /tmp/
+#RUN mkdir -p /opt/netbox/plugins_offline && \
+#    tar -xzf /tmp/netbox_plugin_bundle.tgz -C /opt/netbox/plugins_offline --strip-components=1
+#RUN /usr/local/bin/uv pip install  --no-index --find-links=/opt/netbox/plugins_offline/vendor -r /opt/netbox/plugin_requirements.txt
 
 # Default online method
 RUN /usr/local/bin/uv pip install -r /opt/netbox/plugin_requirements.txt
