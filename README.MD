@@ -1,9 +1,9 @@
 
 # custom_netbox_dtli
 
-`custom_netbox_dtli` is a Docker image builder used to transport **NetBox Community Edition** and associated plugins into an offline environment. It includes supporting files to help bring up NetBox and populate it with device types from the [Device Type Library](https://github.com/netbox-community/devicetype-library).
+`custom_netbox_dtli` is a Docker image builder used to transport **NetBox Community Edition** and associated plugins into an isolate environment. It includes supporting files to help bring up NetBox and populate it with device types from the [Device Type Library](https://github.com/netbox-community/devicetype-library).
 
-It works by creating a custom Docker image from the official NetBox Docker image using an internet-connected host. During the build, plugin dependencies are installed, and the `generate_plugin_offline_bundle.sh` script packages them into a `.tar.gz` bundle for offline use.
+It works by creating a custom Docker image from the official NetBox Docker image. During the build, plugin dependencies are installed. .
 
 ---
 
